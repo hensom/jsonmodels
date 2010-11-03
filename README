@@ -1,0 +1,23 @@
+Allows you to create declarative JSON models. Heavily inspired by django models.
+
+Example:
+
+import json
+from jsonmodels import Model, Field, DateField
+
+class Track(Model):
+  title        = Field()
+  release_date = DateField(key = 'date')
+
+sample_json = """
+{
+  'title': 'Coin Operated Boy',
+  'date':  '2007-02-01'
+}
+"""
+
+data = json.load(sample_json)
+
+track = Track.new_from_json(data)
+
+print '%s - %s' % (track.title, track.release_date.strftime('%F'))
